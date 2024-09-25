@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 0;
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
+    private AudioSource pop;
 
     private Rigidbody rb;
     private int count;
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         count = 0;
+        pop = GetComponent<AudioSource>();
 
         SetCountText();
         winTextObject.SetActive(false);
@@ -50,6 +52,7 @@ public class PlayerController : MonoBehaviour
         {
             other.gameObject.SetActive(false);
             count = count + 1;
+            pop.Play();
 
             SetCountText();
             if (count >= 12)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using Unity.VisualScripting;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
     private AudioSource pop;
+    public int GateRestriction;
 
     private Rigidbody rb;
     private int count;
@@ -24,7 +26,13 @@ public class PlayerController : MonoBehaviour
 
         SetCountText();
         winTextObject.SetActive(false);
+
+        /*if (count >= GateRestriction)
+        {
+            gameobject setactive(false);
+        } */
     }
+
 
     void OnMove(InputValue movementValue)
     {

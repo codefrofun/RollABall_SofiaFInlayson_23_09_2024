@@ -2,35 +2,51 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Camera : MonoBehaviour
+
+public class CameraController : MonoBehaviour
 {
     public GameObject player;
-    public float mouseSensitivity = 100f; // Sensitivity for mouse movement
-    private Vector3 offset;
-    private float rotationX = 0f;
+    public float distance = 5.0f;
+    public float xSpeed = 120.0f;
+    public float ySpeed = 120.0f;
 
-    private void Start()
+
+    private float x = 0.0f;
+    private float y = 0.0f;
+
+
+    void Start()
     {
-        offset = transform.position - player.transform.position;
-
-        // Lock and hide the cursor
-        Cursor.lockState = CursorLockMode.Locked;
+        Vector3 angles = transform.eulerAngles;
+        x = angles.y;
+        y = angles.x;
     }
+
 
     void LateUpdate()
     {
-        // Get mouse input
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        if (Input.GetMouseButton(1))
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            x += Input.GetAxis("Mouse X") * xSpeed * distance * 0.02f;
+            y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
 
-        // Rotate the camera around the player
-        rotationX -= mouseY;
-        rotationX = Mathf.Clamp(rotationX, -90f, 90f); // Limit vertical rotation
 
-        // Apply rotation to the camera
-        transform.localRotation = Quaternion.Euler(rotationX, transform.localEulerAngles.y + mouseX, 0f);
+            y = Mathf.Clamp(y, -20, 80);
+        }
+        else
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
 
-        // Update camera position
-        transform.position = player.transform.position + offset;
+
+        Quaternion rotation = Quaternion.Euler(y, x, 0);
+        Vector3 position = player.transform.position - rotation * Vector3.forward * distance;
+
+
+        transform.rotation = rotation;
+        transform.position = position;
     }
 }

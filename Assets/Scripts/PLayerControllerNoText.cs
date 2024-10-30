@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
-using Unity.VisualScripting;
+using UnityEngine.UIElements;
 
-public class PLayerControllerNoText : MonoBehaviour
+public class PlayerControllerNoText : MonoBehaviour
 {
     public float speed = 0;
     public TextMeshProUGUI countText;
@@ -14,32 +14,28 @@ public class PLayerControllerNoText : MonoBehaviour
     public GameObject mainCamera;
 
     private Rigidbody rb;
-    private int count;
     private float movementX;
     private float movementY;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        count = 0;
         pop = GetComponent<AudioSource>();
 
         SetCountText();
         winTextObject.SetActive(false);
     }
 
-
     void OnMove(InputValue movementValue)
     {
         Vector2 movementVector = movementValue.Get<Vector2>();
-
         movementX = movementVector.x;
         movementY = movementVector.y;
     }
 
     void SetCountText()
     {
-        countText.text = "Count: " + count.ToString();
+        countText.text = "Count: " + CollectableManager.Instance.CollectableCount.ToString();
     }
 
     private void FixedUpdate()
@@ -53,28 +49,22 @@ public class PLayerControllerNoText : MonoBehaviour
         cameraForward.Normalize();
         cameraRight.Normalize();
 
-        // Create the movement direction based on camera orientation
         Vector3 movement = cameraForward * movementY + cameraRight * movementX;
-
-        // Apply movement to the Rigidbody
         rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
     }
-
 
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("PickUp"))
         {
             other.gameObject.SetActive(false);
-            count = count + 1;
+            CollectableManager.Instance.Collect();
             pop.Play();
-
-            SetCountText();
-            if (count >= 5)
+            SetCountText(); // Update the text after collecting
+            if (CollectableManager.Instance.AllCollectablesCollected())
             {
                 winTextObject.SetActive(true);
-            } 
+            }
         }
     }
 }
-

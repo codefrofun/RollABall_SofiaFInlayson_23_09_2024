@@ -12,7 +12,7 @@ public class DoorDisappear : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (!hasDisappeared)
+        if (!hasDisappeared && CollectableManager.Instance.AllCollectablesCollected())
         {
             targetObject.SetActive(false);
             hasDisappeared = true;
@@ -24,4 +24,3 @@ public class DoorDisappear : MonoBehaviour
         // Optionally, you can keep this empty or handle other logic if needed
     }
 }
-

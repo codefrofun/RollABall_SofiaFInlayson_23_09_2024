@@ -57,6 +57,12 @@ public class PlayerController : MonoBehaviour
 
         // Apply movement to the Rigidbody
         rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
+
+        // Stop movement if there is no input
+        if (movement == Vector3.zero)
+        {
+            rb.velocity = Vector3.zero; // Stop the Rigidbody
+        }
     }
 
     void OnTriggerEnter(Collider other)

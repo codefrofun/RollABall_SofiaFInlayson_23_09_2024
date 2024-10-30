@@ -44,22 +44,19 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Get the camera's forward and right directions
         Vector3 cameraForward = mainCamera.transform.forward;
         Vector3 cameraRight = mainCamera.transform.right;
 
-        // Make the movement flat on the ground
         cameraForward.y = 0;
         cameraRight.y = 0;
 
-        // Normalize the vectors to avoid faster diagonal movement
         cameraForward.Normalize();
         cameraRight.Normalize();
 
-        // Create the movement direction based on camera orientation
         Vector3 movement = cameraForward * movementY + cameraRight * movementX;
 
-        rb.velocity
+        // Apply movement to the Rigidbody
+        rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
     }
 
     void OnTriggerEnter(Collider other)

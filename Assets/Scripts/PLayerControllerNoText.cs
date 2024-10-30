@@ -9,7 +9,7 @@ public class PLayerControllerNoText : MonoBehaviour
 {
     public float speed = 0;
     public TextMeshProUGUI countText;
-    //public GameObject winTextObject;
+    public GameObject winTextObject;
     private AudioSource pop;
     public GameObject mainCamera;
 
@@ -25,7 +25,7 @@ public class PLayerControllerNoText : MonoBehaviour
         pop = GetComponent<AudioSource>();
 
         SetCountText();
-        //winTextObject.SetActive(false);
+        winTextObject.SetActive(false);
     }
 
 
@@ -69,11 +69,11 @@ public class PLayerControllerNoText : MonoBehaviour
             count = count + 1;
             pop.Play();
 
-            /*SetCountText();
-            if (count >= 12)
+            SetCountText();
+            if (count >= 5)
             {
                 winTextObject.SetActive(true);
-            } */
+            } 
         }
     }
 }

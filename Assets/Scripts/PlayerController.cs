@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
     public GameObject winTextObject;
     private AudioSource pop;
     public GameObject mainCamera;
-    public int GateRestriction;
 
     private Rigidbody rb;
     private int count;
@@ -27,11 +26,6 @@ public class PlayerController : MonoBehaviour
 
         SetCountText();
         winTextObject.SetActive(false);
-
-        /*if (count >= GateRestriction)
-        {
-            gameobject setactive(false);
-        } */
     }
 
 
@@ -65,7 +59,7 @@ public class PlayerController : MonoBehaviour
         // Create the movement direction based on camera orientation
         Vector3 movement = cameraForward * movementY + cameraRight * movementX;
 
-        rb.AddForce(movement * speed);
+        rb.velocity
     }
 
     void OnTriggerEnter(Collider other)

@@ -179,9 +179,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c4bde6b8e80ef64792906c6efee9a5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
+  speed: 5
   countText: {fileID: 0}
   winTextObject: {fileID: 0}
+  mainCamera: {fileID: 0}
 --- !u!1 &6660332274999764874
 GameObject:
   m_ObjectHideFlags: 0

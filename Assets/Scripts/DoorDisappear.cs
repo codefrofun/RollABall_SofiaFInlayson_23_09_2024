@@ -12,12 +12,18 @@ public class DoorDisappear : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (!hasDisappeared && CollectableManager.Instance.AllCollectablesCollected())
+        if (other.CompareTag("Player"))
         {
-            targetObject.SetActive(false);
-            hasDisappeared = true;
+            Debug.Log("Trigger entered by the player!");
+            if (!hasDisappeared && CollectableManager.Instance.AllCollectablesCollected())
+            {
+                Debug.Log("All collectables collected! Hiding door.");
+                targetObject.SetActive(false);
+                hasDisappeared = true;
+            }
         }
     }
+
 
     void OnTriggerExit(Collider other)
     {

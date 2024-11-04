@@ -23,10 +23,4 @@ public class DoorDisappear : MonoBehaviour
             }
         }
     }
-
-
-    void OnTriggerExit(Collider other)
-    {
-        // Optionally, you can keep this empty or handle other logic if needed
-    }
 }

@@ -30,7 +30,7 @@ public class PlayerControllerNoText : MonoBehaviour
     {
         Vector2 movementVector = movementValue.Get<Vector2>();
         movementX = movementVector.x;
-        movementY = movementVector.y;
+        movementY = movementVector.y; 
     }
 
     void SetCountText()
@@ -40,7 +40,14 @@ public class PlayerControllerNoText : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 cameraForward = mainCamera.transform.forward;
+
+        rb.AddForce(movement);
+
+        Vector3 movement = new Vector3 (movementX, 0.0f, movementY);
+
+
+
+        /* Vector3 cameraForward = mainCamera.transform.forward;
         Vector3 cameraRight = mainCamera.transform.right;
 
         cameraForward.y = 0;
@@ -50,7 +57,7 @@ public class PlayerControllerNoText : MonoBehaviour
         cameraRight.Normalize();
 
         Vector3 movement = cameraForward * movementY + cameraRight * movementX;
-        rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime); */
     }
 
     void OnTriggerEnter(Collider other)

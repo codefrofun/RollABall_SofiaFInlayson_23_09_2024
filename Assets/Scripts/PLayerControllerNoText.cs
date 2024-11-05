@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
-using UnityEngine.UIElements;
 
 public class PlayerControllerNoText : MonoBehaviour
 {
-    public float speed = 0;
+    public float speed = 7f; // Normal movement speed
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
     private AudioSource pop;
@@ -30,7 +29,7 @@ public class PlayerControllerNoText : MonoBehaviour
     {
         Vector2 movementVector = movementValue.Get<Vector2>();
         movementX = movementVector.x;
-        movementY = movementVector.y; 
+        movementY = movementVector.y;
     }
 
     void SetCountText()
@@ -40,25 +39,27 @@ public class PlayerControllerNoText : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-        rb.AddForce(movement);
-
-        Vector3 movement = new Vector3 (movementX, 0.0f, movementY);
-
-
-
-        /* Vector3 cameraForward = mainCamera.transform.forward;
+        Vector3 cameraForward = mainCamera.transform.forward;
         Vector3 cameraRight = mainCamera.transform.right;
 
+        // Zero out the vertical axis so we don't move up/down based on camera pitch
         cameraForward.y = 0;
         cameraRight.y = 0;
 
+        // Normalize the vectors to ensure consistent movement speed
         cameraForward.Normalize();
         cameraRight.Normalize();
 
+        // Calculate movement based on player input and camera direction
         Vector3 movement = cameraForward * movementY + cameraRight * movementX;
-        rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime); */
+
+        // Apply the normal speed to the movement vector
+        Vector3 velocity = movement * speed;
+
+        // Apply the velocity to the Rigidbody directly
+        rb.velocity = new Vector3(velocity.x, rb.velocity.y, velocity.z); // Keep y-axis velocity for gravity, etc.
     }
+
 
     void OnTriggerEnter(Collider other)
     {

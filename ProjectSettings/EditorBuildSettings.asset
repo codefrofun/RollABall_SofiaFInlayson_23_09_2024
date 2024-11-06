@@ -9,12 +9,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: 815e4e1d1b2af6543896d8fb80ee82a2
   - enabled: 1
-    path: Assets/Scenes/Maze level.unity
+    path: Assets/Scenes/Maze Level.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/Maze level 1.unity
+    path: Assets/Scenes/Loading Screen.unity
+    guid: d7aed02c98fc07741bfe2bd79d495651
+  - enabled: 1
+    path: Assets/Scenes/Secret Maze.unity
     guid: 3269c71d42809d24ab43fd4f2ba43236
   - enabled: 0
-    path: Assets/Scenes/Scene_1_level_1.unity
+    path: Assets/Scenes/Open World....unity
     guid: 72705baf45d4d674a957b8ac92c32ba1
   m_configObjects: {}

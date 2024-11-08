@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
+using JetBrains.Annotations;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public GameObject winTextObject;
     private AudioSource pop;
     public GameObject mainCamera;
+    public bool FindSecret;
 
     private Rigidbody rb;
     private int count;
@@ -74,10 +77,33 @@ public class PlayerController : MonoBehaviour
             pop.Play();
 
             SetCountText();
-            if (count >= 12)
+            if (count == 5)
             {
-                winTextObject.SetActive(true);
+                if (FindSecret == true)
+                {
+                    winTextObject.SetActive(true);
+                    StartCoroutine(WaitToLoadScene());
+                }
+                else if (FindSecret == false)
+                {
+                    winTextObject.SetActive(true);
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                }
             }
+        }
+        else if (other.gameObject.CompareTag("Secret"))
+        {
+            FindSecret = true;
+            other.gameObject.SetActive(false);
+            pop.Play();
+
+            SetCountText();
+        }
+
+        static IEnumerator WaitToLoadScene()
+        {
+            yield return new WaitForSeconds(5);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 }

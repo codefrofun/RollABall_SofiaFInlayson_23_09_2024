@@ -1,10 +1,11 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CollectableManager : MonoBehaviour
 {
     public static CollectableManager Instance;
 
-    private int collectableCount = 0;
+    public int collectableCount = 0;
     public int totalCollectables = 5;
 
     private void Awake()

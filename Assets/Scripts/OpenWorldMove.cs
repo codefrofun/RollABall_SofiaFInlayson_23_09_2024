@@ -1,17 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using TMPro;
-using UnityEngine.SceneManagement;
 
-public class PlayerControllerNoText : MonoBehaviour
+public class OpenWorldMove : MonoBehaviour
 {
-    public float speed = 7f; // Normal movement speed
-    public TextMeshProUGUI countText;
-    public GameObject winTextObject;
+    public float speed = 0;
     private AudioSource pop;
     public GameObject mainCamera;
+    public bool FindSecret;
 
     private Rigidbody rb;
     private float movementX;
@@ -21,22 +19,15 @@ public class PlayerControllerNoText : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         pop = GetComponent<AudioSource>();
-
-        SetCountText();
-        winTextObject.SetActive(false);
     }
+
 
     void OnMove(InputValue movementValue)
     {
         Vector2 movementVector = movementValue.Get<Vector2>();
+
         movementX = movementVector.x;
         movementY = movementVector.y;
-    }
-
-
-    void SetCountText()
-    {
-        countText.text = "Count: " + CollectableManager.Instance.CollectableCount.ToString();
     }
 
     private void FixedUpdate()
@@ -44,25 +35,22 @@ public class PlayerControllerNoText : MonoBehaviour
         Vector3 cameraForward = mainCamera.transform.forward;
         Vector3 cameraRight = mainCamera.transform.right;
 
-        // Zero out the vertical axis so we don't move up/down based on camera pitch
         cameraForward.y = 0;
         cameraRight.y = 0;
 
-        // Normalize the vectors to ensure consistent movement speed
         cameraForward.Normalize();
         cameraRight.Normalize();
 
-        // Calculate movement based on player input and camera direction
         Vector3 movement = cameraForward * movementY + cameraRight * movementX;
 
-        // Apply the normal speed to the movement vector
-        Vector3 velocity = movement * speed;
+        // Apply movement to the Rigidbody
+        rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
 
-        // Preserve vertical velocity for gravity, jumping, etc.
-        velocity.y = rb.velocity.y;
-
-        // Apply the velocity to the Rigidbody directly
-        rb.velocity = velocity;
+        // Stop movement if there is no input
+        if (movement == Vector3.zero)
+        {
+            rb.velocity = Vector3.zero; // Stop the Rigidbody
+        }
     }
 
 
@@ -73,11 +61,6 @@ public class PlayerControllerNoText : MonoBehaviour
             other.gameObject.SetActive(false);
             CollectableManager.Instance.Collect();
             pop.Play();
-            SetCountText(); // Update the text after collecting
-            if (CollectableManager.Instance.AllCollectablesCollected())
-            {
-                winTextObject.SetActive(true);
-            }
         }
     }
 }

@@ -6,10 +6,10 @@ using UnityEngine.InputSystem;
 
 public class OpenWorldMove : MonoBehaviour
 {
-    public float speed = 0;
+    public float speed = 7;
+    // add shift run after trigger
     private AudioSource pop;
     public GameObject mainCamera;
-    public bool FindSecret;
 
     private Rigidbody rb;
     private float movementX;

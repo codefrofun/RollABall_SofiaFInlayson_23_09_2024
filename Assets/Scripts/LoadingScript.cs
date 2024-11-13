@@ -13,7 +13,7 @@ public class LoadingScript : MonoBehaviour
     {
         timer = Time.timeSinceLevelLoad;
 
-        if (timer >= 5)
+        if (timer >= 9)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }

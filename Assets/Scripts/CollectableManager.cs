@@ -16,9 +16,11 @@ public class CollectableManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            Debug.Log("CollectableManager instance created.");
         }
         else
         {
+            Debug.LogError("Duplicate CollectableManager instance detected and destroyed.");
             Destroy(gameObject);
         }
     }
@@ -33,7 +35,7 @@ public class CollectableManager : MonoBehaviour
         collectableCount++;
         Debug.Log("Collectable Count: " + collectableCount);
 
-        if (collectableCount == 5 || collectableCount == 6)
+        if (collectableCount == 6)
         {
             sceneLoader.CheckAndLoadScene(collectableCount);
         }
@@ -43,8 +45,6 @@ public class CollectableManager : MonoBehaviour
     {
         return collectableCount >= totalCollectables;
     }
-
-    public int CollectableCount => collectableCount;
 
     void OnTriggerEnter(Collider other)
     {

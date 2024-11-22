@@ -3,7 +3,8 @@ using UnityEngine;
 public class DoorDisappear : MonoBehaviour
 {
     public GameObject targetObject;
-    private bool hasDisappeared = false;
+    public bool hasDisappeared = false;
+    public CollectablesLoadScene collectablesLoadScene;
 
     void Start()
     {
@@ -15,12 +16,23 @@ public class DoorDisappear : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Trigger entered by the player!");
+
             if (!hasDisappeared && CollectableManager.Instance.AllCollectablesCollected())
             {
                 Debug.Log("All collectables collected! Hiding door.");
-                targetObject.SetActive(false);
-                hasDisappeared = true;
+                targetObject.SetActive(false);  // Hide the door object
+                hasDisappeared = true;  // Mark the door as disappeared
+
+                if (collectablesLoadScene != null)
+                {
+                    collectablesLoadScene.CheckAndLoadScene(hasDisappeared);
+                }
+                else
+                {
+                    Debug.LogError("CollectablesLoadScene reference is missing. Please assign it in the Inspector.");
+                }
             }
         }
     }
 }
+

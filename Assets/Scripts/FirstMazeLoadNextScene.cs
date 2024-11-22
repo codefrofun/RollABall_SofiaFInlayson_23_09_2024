@@ -5,8 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class FirstMazeLoadNextScene : MonoBehaviour
 {
-    public void loadSecretMaze()
+    public float timer;
+
+    void Update()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3);
+        timer = Time.timeSinceLevelLoad;
+
+        if (timer >= 8)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 }

@@ -3,26 +3,15 @@ using UnityEngine.SceneManagement;
 
 public class LoadingScript : MonoBehaviour
 {
-    public float timer;
-
-    void Update()
-    {
-        timer = Time.timeSinceLevelLoad;
-
-        if (timer >= 9)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        }
-    }
     public void CheckAndLoadScene(int collectablesFound)
     {
         if (collectablesFound == 6)
         {
-            LoadNextScene();
+            Invoke("LoadNextScene", 6f);
         }
         else if (collectablesFound == 5)
         {
-            ReloadCurrentScene();
+            Invoke("ReloadCurrentScene", 6f);
         }
     }
 

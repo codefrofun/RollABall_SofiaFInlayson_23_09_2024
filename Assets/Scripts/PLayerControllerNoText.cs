@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using TMPro;
-using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class PlayerControllerNoText : MonoBehaviour
 {
-    public float speed = 7f; // Normal movement speed
+    public float speed = 7f;
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
     private AudioSource pop;
@@ -33,10 +30,9 @@ public class PlayerControllerNoText : MonoBehaviour
         movementY = movementVector.y;
     }
 
-
     void SetCountText()
     {
-        countText.text = "Count: " + CollectableManager.Instance.CollectableCount.ToString();
+        countText.text = "Count: " + Collect5Manager.Instance.CollectableCount.ToString();
     }
 
     private void FixedUpdate()
@@ -44,39 +40,38 @@ public class PlayerControllerNoText : MonoBehaviour
         Vector3 cameraForward = mainCamera.transform.forward;
         Vector3 cameraRight = mainCamera.transform.right;
 
-        // Zero out the vertical axis so we don't move up/down based on camera pitch
         cameraForward.y = 0;
         cameraRight.y = 0;
 
-        // Normalize the vectors to ensure consistent movement speed
         cameraForward.Normalize();
         cameraRight.Normalize();
 
-        // Calculate movement based on player input and camera direction
         Vector3 movement = cameraForward * movementY + cameraRight * movementX;
-
-        // Apply the normal speed to the movement vector
         Vector3 velocity = movement * speed;
-
-        // Preserve vertical velocity for gravity, jumping, etc.
         velocity.y = rb.velocity.y;
-
-        // Apply the velocity to the Rigidbody directly
         rb.velocity = velocity;
     }
-
 
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("PickUp"))
         {
-            other.gameObject.SetActive(false);
-            CollectableManager.Instance.Collect();
-            pop.Play();
-            SetCountText(); // Update the text after collecting
-            if (CollectableManager.Instance.AllCollectablesCollected())
+            if (Collect5Manager.Instance != null)
             {
-                winTextObject.SetActive(true);
+                other.gameObject.SetActive(false);
+                Collect5Manager.Instance.Collect();
+                pop.Play();
+                SetCountText();
+
+                if (Collect5Manager.Instance.AllCollectablesCollected())
+                {
+                    winTextObject.SetActive(true);
+                    Collect5Manager.Instance.CheckForDoorAndLoadScene();
+                }
+            }
+            else
+            {
+                Debug.LogError("Collect5Manager.Instance is null. Please make sure Collect5Manager is in the scene.");
             }
         }
     }

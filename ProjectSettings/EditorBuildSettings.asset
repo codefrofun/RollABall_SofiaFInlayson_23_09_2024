@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Secret Maze.unity
     guid: 3269c71d42809d24ab43fd4f2ba43236
   - enabled: 1
+    path: Assets/Scenes/LoadingOpen.unity
+    guid: bcdca6a2340b0bf46a8cacdccd521ff5
+  - enabled: 1
     path: Assets/Scenes/Open World....unity
     guid: 72705baf45d4d674a957b8ac92c32ba1
   m_configObjects:

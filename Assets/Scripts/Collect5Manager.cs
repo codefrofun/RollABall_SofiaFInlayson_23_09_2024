@@ -10,6 +10,8 @@ public class Collect5Manager : MonoBehaviour
     private CollectablesLoadScene sceneLoader;
     public GameObject door;
 
+    private bool doorTriggered = false;
+
     private void Awake()
     {
         if (Instance == null)
@@ -71,7 +73,7 @@ public class Collect5Manager : MonoBehaviour
 
     public void CheckForDoorAndLoadScene()
     {
-        if (collectableCount == totalCollectables && door != null && !door.activeSelf)
+        if (collectableCount == totalCollectables && door != null && !door.activeSelf && doorTriggered)
         {
             if (sceneLoader != null)
             {
@@ -82,5 +84,11 @@ public class Collect5Manager : MonoBehaviour
                 Debug.LogError("SceneLoader is not assigned.");
             }
         }
+    }
+
+    public void TriggerDoor()
+    {
+        doorTriggered = true;
+        CheckForDoorAndLoadScene();
     }
 }

@@ -8,7 +8,19 @@ public class DoorDisappear : MonoBehaviour
 
     void Start()
     {
-        targetObject.SetActive(true);
+        if (targetObject != null)
+        {
+            targetObject.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError("Target Object (door) is not assigned in the Inspector.");
+        }
+
+        if (collectablesLoadScene == null)
+        {
+            Debug.LogError("CollectablesLoadScene reference is missing. Please assign it in the Inspector.");
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -17,22 +29,39 @@ public class DoorDisappear : MonoBehaviour
         {
             Debug.Log("Trigger entered by the player!");
 
-            if (!hasDisappeared && CollectableManager.Instance.AllCollectablesCollected())
+            if (!hasDisappeared && CollectableManager.Instance != null && CollectableManager.Instance.AllCollectablesCollected())
             {
                 Debug.Log("All collectables collected! Hiding door.");
-                targetObject.SetActive(false);  // Hide the door object
-                hasDisappeared = true;  // Mark the door as disappeared
-
-                if (collectablesLoadScene != null)
+                if (targetObject != null)
                 {
-                    collectablesLoadScene.CheckAndLoadScene(hasDisappeared);
+                    targetObject.SetActive(false);
+                    hasDisappeared = true;
+
+                    if (collectablesLoadScene != null)
+                    {
+                        collectablesLoadScene.CheckAndLoadScene(hasDisappeared);
+                    }
+                    else
+                    {
+                        Debug.LogError("CollectablesLoadScene is null.");
+                    }
                 }
                 else
                 {
-                    Debug.LogError("CollectablesLoadScene reference is missing. Please assign it in the Inspector.");
+                    Debug.LogError("Target object (door) is null.");
+                }
+            }
+            else
+            {
+                if (CollectableManager.Instance == null)
+                {
+                    Debug.LogError("CollectableManager.Instance is null. Make sure the instance is properly initialized.");
+                }
+                if (hasDisappeared)
+                {
+                    Debug.LogWarning("The door has already disappeared.");
                 }
             }
         }
     }
 }
-

@@ -9,6 +9,7 @@ public class PlayerControllerNoText : MonoBehaviour
     public GameObject winTextObject;
     private AudioSource pop;
     public GameObject mainCamera;
+    public GameObject door;
 
     private Rigidbody rb;
     private float movementX;
@@ -68,6 +69,18 @@ public class PlayerControllerNoText : MonoBehaviour
                     winTextObject.SetActive(true);
                     Collect5Manager.Instance.CheckForDoorAndLoadScene();
                 }
+            }
+            else
+            {
+                Debug.LogError("Collect5Manager.Instance is null. Please make sure Collect5Manager is in the scene.");
+            }
+        }
+
+        if (other.gameObject.CompareTag("Door"))
+        {
+            if (Collect5Manager.Instance != null)
+            {
+                Collect5Manager.Instance.TriggerDoor();
             }
             else
             {

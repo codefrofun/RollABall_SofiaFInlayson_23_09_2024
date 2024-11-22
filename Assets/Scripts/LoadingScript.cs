@@ -1,14 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LoadingScript : MonoBehaviour
 {
-
     public float timer;
 
-    // Start is called before the first frame update
     void Update()
     {
         timer = Time.timeSinceLevelLoad;
@@ -17,5 +13,27 @@ public class LoadingScript : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
+    }
+    public void CheckAndLoadScene(int collectablesFound)
+    {
+        if (collectablesFound == 6)
+        {
+            LoadNextScene();
+        }
+        else if (collectablesFound == 5)
+        {
+            ReloadCurrentScene();
+        }
+    }
+
+    public void LoadNextScene()
+    {
+        SceneManager.LoadScene("Secret Maze");
+    }
+
+    public void ReloadCurrentScene()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.name);
     }
 }

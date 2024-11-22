@@ -6,7 +6,9 @@ public class CollectableManager : MonoBehaviour
     public static CollectableManager Instance;
 
     public int collectableCount = 0;
-    public int totalCollectables = 5;
+    public int totalCollectables = 6;
+
+    private LoadingScript sceneLoader;
 
     private void Awake()
     {
@@ -21,10 +23,20 @@ public class CollectableManager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        sceneLoader = FindObjectOfType<LoadingScript>();
+    }
+
     public void Collect()
     {
         collectableCount++;
-        Debug.Log("Collectable Count: " + collectableCount); // Debug log to verify count
+        Debug.Log("Collectable Count: " + collectableCount);
+
+        if (collectableCount == 5 || collectableCount == 6)
+        {
+            sceneLoader.CheckAndLoadScene(collectableCount);
+        }
     }
 
     public bool AllCollectablesCollected()
@@ -32,5 +44,14 @@ public class CollectableManager : MonoBehaviour
         return collectableCount >= totalCollectables;
     }
 
-    public int CollectableCount => collectableCount; // Expose the count
+    public int CollectableCount => collectableCount;
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Collect();
+            Destroy(gameObject);
+        }
+    }
 }

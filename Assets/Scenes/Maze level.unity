@@ -3237,7 +3237,7 @@ Transform:
   m_GameObject: {fileID: 715566683}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.145, y: 0, z: 41.01667}
+  m_LocalPosition: {x: -4.136, y: 0, z: 41.01667}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4676,7 +4676,7 @@ Transform:
   m_GameObject: {fileID: 1079365615}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.43500063, y: 0, z: -2.8333335}
+  m_LocalPosition: {x: 0.422, y: 0, z: -2.8333335}
   m_LocalScale: {x: 6.6666665, y: 1, z: 0.15000002}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4892,8 +4892,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 926989484}
   distance: 12
-  xSpeed: 110
-  ySpeed: 110
+  xSpeed: 70
+  ySpeed: 70
 --- !u!114 &1103320941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5912,7 +5912,7 @@ Transform:
   m_GameObject: {fileID: 1388295182}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.5699997, y: 0, z: 4.4000015}
+  m_LocalPosition: {x: -0.5699997, y: 0, z: 3.98}
   m_LocalScale: {x: 20, y: 1, z: 0.15000002}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6147,7 +6147,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.55
+  m_Intensity: 0.7
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -6205,13 +6205,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1453029651}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.83519757, y: -0, z: -0, w: 0.54995006}
-  m_LocalPosition: {x: 195.6, y: 558.6, z: 116.6}
+  m_LocalRotation: {x: 0.7024454, y: 0.081058376, z: -0.081058376, w: 0.7024454}
+  m_LocalPosition: {x: 195.6, y: 558.6, z: 16.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 113.27301, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 22.440002, z: 9.274994}
 --- !u!1001 &1468123018
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7142,32 +7142,32 @@ PrefabInstance:
     - target: {fileID: 2229552583766408750, guid: 8eb0eb5097092b14d9ac602de5b0b039,
         type: 3}
       propertyPath: m_Size.x
-      value: 1.3210771
+      value: 1.7060376
       objectReference: {fileID: 0}
     - target: {fileID: 2229552583766408750, guid: 8eb0eb5097092b14d9ac602de5b0b039,
         type: 3}
       propertyPath: m_Size.y
-      value: 1.5889293
+      value: 1.9833342
       objectReference: {fileID: 0}
     - target: {fileID: 2229552583766408750, guid: 8eb0eb5097092b14d9ac602de5b0b039,
         type: 3}
       propertyPath: m_Size.z
-      value: 1.364377
+      value: 1.8015108
       objectReference: {fileID: 0}
     - target: {fileID: 2229552583766408750, guid: 8eb0eb5097092b14d9ac602de5b0b039,
         type: 3}
       propertyPath: m_Center.x
-      value: -0.017648028
+      value: -0.031721406
       objectReference: {fileID: 0}
     - target: {fileID: 2229552583766408750, guid: 8eb0eb5097092b14d9ac602de5b0b039,
         type: 3}
       propertyPath: m_Center.y
-      value: -0.04257474
+      value: -0.013613458
       objectReference: {fileID: 0}
     - target: {fileID: 2229552583766408750, guid: 8eb0eb5097092b14d9ac602de5b0b039,
         type: 3}
       propertyPath: m_Center.z
-      value: 0.0028121301
+      value: 0.008897112
       objectReference: {fileID: 0}
     - target: {fileID: 2229552583766408750, guid: 8eb0eb5097092b14d9ac602de5b0b039,
         type: 3}
@@ -7996,7 +7996,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -230, y: -5}
+  m_AnchoredPosition: {x: -242.8999, y: -6.799988}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1920135413
@@ -8021,7 +8021,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'use ''WASD'' to move
 
-    use left-click on your mouse to turn the camera
+    use right-click on your mouse to turn the camera
 
     Find
     all 5 collectables...'
@@ -8087,7 +8087,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -260.39233, w: 0}
+  m_margin: {x: 0, y: 0, z: -242.32178, w: -22.703125}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

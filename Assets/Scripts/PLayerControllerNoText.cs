@@ -67,7 +67,6 @@ public class PlayerControllerNoText : MonoBehaviour
                 if (Collect5Manager.Instance.AllCollectablesCollected())
                 {
                     winTextObject.SetActive(true);
-                    Collect5Manager.Instance.CheckForDoorAndLoadScene();
                 }
             }
             else
@@ -78,13 +77,13 @@ public class PlayerControllerNoText : MonoBehaviour
 
         if (other.gameObject.CompareTag("Door"))
         {
-            if (Collect5Manager.Instance != null)
+            if (Collect5Manager.Instance != null && Collect5Manager.Instance.AllCollectablesCollected())
             {
                 Collect5Manager.Instance.TriggerDoor();
             }
             else
             {
-                Debug.LogError("Collect5Manager.Instance is null. Please make sure Collect5Manager is in the scene.");
+                Debug.Log("You need to collect all items before accessing the door.");
             }
         }
     }

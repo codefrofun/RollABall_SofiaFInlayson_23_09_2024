@@ -1,94 +1,60 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Collect5Manager : MonoBehaviour
 {
     public static Collect5Manager Instance;
-
-    public int collectableCount = 0;
-    public int totalCollectables = 5;
-
-    private CollectablesLoadScene sceneLoader;
+    public int CollectableCount = 0;
     public GameObject door;
+    public CollectablesLoadScene collectablesLoadScene;
 
-    private bool doorTriggered = false;
-
-    private void Awake()
+    void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
-            Debug.Log("Collect5Manager instance created.");
         }
         else
         {
-            Debug.LogError("Duplicate Collect5Manager instance detected and destroyed.");
             Destroy(gameObject);
-        }
-    }
-
-    void Start()
-    {
-        sceneLoader = FindObjectOfType<CollectablesLoadScene>();
-        if (sceneLoader == null)
-        {
-            Debug.LogError("CollectablesLoadScene not found in the scene.");
-        }
-
-        if (door == null)
-        {
-            Debug.LogError("Door GameObject is not assigned in Collect5Manager.");
         }
     }
 
     public void Collect()
     {
-        collectableCount++;
-        Debug.Log("Collectable Count: " + collectableCount);
-
-        if (collectableCount == totalCollectables)
-        {
-            if (door != null)
-            {
-                door.SetActive(false);
-            }
-        }
+        CollectableCount++;
     }
 
     public bool AllCollectablesCollected()
     {
-        return collectableCount >= totalCollectables;
+        return CollectableCount >= 5;
     }
 
-    public int CollectableCount => collectableCount;
-
-    void OnTriggerEnter(Collider other)
+    public void TriggerDoor()
     {
-        if (other.CompareTag("Player"))
+        if (door != null && AllCollectablesCollected())
         {
-            Collect();
-            Destroy(gameObject);
+            door.SetActive(false);
+            Debug.Log("The door has disappeared.");
+
+
+            if (collectablesLoadScene != null)
+            {
+                collectablesLoadScene.CheckAndLoadScene(true);
+            }
+            else
+            {
+                Debug.LogError("CollectablesLoadScene is not assigned in the Inspector.");
+            }
+        }
+        else
+        {
+            Debug.Log("You must collect all the items before triggering the door.");
         }
     }
 
     public void CheckForDoorAndLoadScene()
     {
-        if (collectableCount == totalCollectables && door != null && !door.activeSelf && doorTriggered)
-        {
-            if (sceneLoader != null)
-            {
-                sceneLoader.CheckAndLoadScene(true);
-            }
-            else
-            {
-                Debug.LogError("SceneLoader is not assigned.");
-            }
-        }
-    }
 
-    public void TriggerDoor()
-    {
-        doorTriggered = true;
-        CheckForDoorAndLoadScene();
     }
 }

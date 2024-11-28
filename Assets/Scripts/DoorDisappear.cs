@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class DoorDisappear : MonoBehaviour
 {
@@ -25,43 +26,30 @@ public class DoorDisappear : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !hasDisappeared)
         {
             Debug.Log("Trigger entered by the player!");
 
-            if (!hasDisappeared && CollectableManager.Instance != null && CollectableManager.Instance.AllCollectablesCollected())
+            if (CollectableManager.Instance != null && CollectableManager.Instance.AllCollectablesCollected())
             {
-                Debug.Log("All collectables collected! Hiding door.");
                 if (targetObject != null)
                 {
                     targetObject.SetActive(false);
                     hasDisappeared = true;
 
-                    if (collectablesLoadScene != null)
-                    {
-                        collectablesLoadScene.CheckAndLoadScene(hasDisappeared);
-                    }
-                    else
-                    {
-                        Debug.LogError("CollectablesLoadScene is null.");
-                    }
-                }
-                else
-                {
-                    Debug.LogError("Target object (door) is null.");
+                    // Start the coroutine to load the next scene after a delay
+                    StartCoroutine(LoadNextSceneAfterDelay(10f));
                 }
             }
-            else
-            {
-                if (CollectableManager.Instance == null)
-                {
-                    Debug.LogError("CollectableManager.Instance is null. Make sure the instance is properly initialized.");
-                }
-                if (hasDisappeared)
-                {
-                    Debug.LogWarning("The door has already disappeared.");
-                }
-            }
+        }
+    }
+
+    private IEnumerator LoadNextSceneAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (collectablesLoadScene != null)
+        {
+            collectablesLoadScene.CheckAndLoadScene(true);
         }
     }
 }

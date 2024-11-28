@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,12 +8,14 @@ public class CollectablesLoadScene : MonoBehaviour
     {
         if (hasDisappeared)
         {
-            Invoke("LoadNextScene", 10f);
+            Debug.Log("Waiting for 10 seconds before loading the next scene...");
+            Invoke("LoadNextScene", 10f); // Delay the scene load by 10 seconds
         }
     }
 
     public void LoadNextScene()
     {
-        SceneManager.LoadScene("Open World...");
+        Debug.Log("Loading the next scene...");
+        SceneManager.LoadScene("LoadingOpen");
     }
 }

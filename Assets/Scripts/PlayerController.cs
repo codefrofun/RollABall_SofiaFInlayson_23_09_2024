@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
             pop.Play();
 
             SetCountText();
-            if (count == 5)
+            if (count == 6)
             {
                 if (FindSecret == true)
                 {

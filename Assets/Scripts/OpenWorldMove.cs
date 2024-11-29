@@ -1,31 +1,48 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+using PlayerControlsNamespace;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class OpenWorldMove : MonoBehaviour
 {
     public float speed = 7;
-    // add shift run after trigger
+    public float runSpeed = 14;
     private AudioSource pop;
     public GameObject mainCamera;
 
     private Rigidbody rb;
     private float movementX;
     private float movementY;
+    private bool isRunning = false;
+
+    private PlayerControlsName controls;
+
+    void Awake()
+    {
+        controls = new PlayerControlsName();
+    }
+
+    void OnEnable()
+    {
+        controls.Enable();
+    }
+
+    void OnDisable()
+    {
+        controls.Disable();
+    }
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         pop = GetComponent<AudioSource>();
-    }
 
+        controls.Player.Sprint.performed += _ => isRunning = true;
+        controls.Player.Sprint.canceled += _ => isRunning = false;
+    }
 
     void OnMove(InputValue movementValue)
     {
         Vector2 movementVector = movementValue.Get<Vector2>();
-
         movementX = movementVector.x;
         movementY = movementVector.y;
     }
@@ -43,16 +60,15 @@ public class OpenWorldMove : MonoBehaviour
 
         Vector3 movement = cameraForward * movementY + cameraRight * movementX;
 
-        // Apply movement to the Rigidbody
-        rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
+        float currentSpeed = isRunning ? runSpeed : speed;
 
-        // Stop movement if there is no input
+        rb.MovePosition(rb.position + movement * currentSpeed * Time.fixedDeltaTime);
+
         if (movement == Vector3.zero)
         {
-            rb.velocity = Vector3.zero; // Stop the Rigidbody
+            rb.velocity = Vector3.zero;
         }
     }
-
 
     void OnTriggerEnter(Collider other)
     {

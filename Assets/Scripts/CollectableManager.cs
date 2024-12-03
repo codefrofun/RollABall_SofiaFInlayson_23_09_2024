@@ -28,16 +28,22 @@ public class CollectableManager : MonoBehaviour
     void Start()
     {
         sceneLoader = FindObjectOfType<LoadingScript>();
+        Debug.Log("SceneLoader: " + (sceneLoader != null ? "Found" : "Not Found"));
     }
 
     public void Collect()
     {
         collectableCount++;
-        Debug.Log("Collectable Count: " + collectableCount);
+        Debug.Log("Collectable Count: " + collectableCount);  // Log the updated collectable count
 
-        if (collectableCount == 6)
+        // Call CheckAndLoadScene every time the collectable count changes
+        if (sceneLoader != null)
         {
             sceneLoader.CheckAndLoadScene(collectableCount);
+        }
+        else
+        {
+            Debug.LogError("sceneLoader is null!");
         }
     }
 
